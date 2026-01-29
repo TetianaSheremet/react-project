@@ -1,0 +1,14 @@
+https://api.themoviedb.org/3/movie/{movie_id} - URL to get all information about specific movie using its id
+
+https://api.themoviedb.org/3/discover/movie - URL to get the list of all movies,used for pagination
+
+https://api.themoviedb.org/3/genre/movie/list - URL to get the genre of a movie
+
+https://api.themoviedb.org/3/search/movie - URL used to search for movies by key words
+
+
+
+
+
+
+
