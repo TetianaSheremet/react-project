@@ -1,4 +1,4 @@
-import {MoviesComponent} from "../components/MoviesComponent.tsx";
+import {MoviesList} from "../components/MoviesList.tsx";
 import {PaginationComponent} from "../components/pagination/PaginationComponent.tsx";
 
 export const MoviesPage = () => {
@@ -6,7 +6,7 @@ export const MoviesPage = () => {
 
         <>
 
-            <MoviesComponent/>
+            <MoviesList/>
             <PaginationComponent/>
         </>
 

@@ -1,34 +1,25 @@
-import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import type {IMovie} from "../models/IMovie.ts";
-import {getMovieById} from "../services/api.service.ts";
-
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useAppDispatch } from "../redux/hooks/useAppDispatch";
+import { useAppSelector } from "../redux/hooks/useAppSelector";
+import { movieSliceActions } from "../redux/slices/movieSlice/movieSlice";
+import { SingleMovieComponent } from "../components/SingleMovieComponent";
 
 export const SingleMoviePage = () => {
+    const { id } = useParams();
+    const dispatch = useAppDispatch();
 
-
-    const {id} = useParams();
-
-    console.log(id)
-
-
-    const [movie, setMovie] =  useState<IMovie>();
+    const movie = useAppSelector(state => state.movieSlice.movie);
+    const isLoading = useAppSelector(state => state.movieSlice.isLoading);
 
     useEffect(() => {
-        getMovieById(id).then(value => setMovie(value))
+        if (id) {
+            dispatch(movieSliceActions.loadMovie(id));
+        }
     }, [id]);
 
+    if (isLoading) return <p>Loading...</p>;
+    if (!movie) return null;
 
-    return (
-        <> {movie && (
-            <div>
-                <h1>{movie.title}</h1>
-                <p>ID: {movie.id}</p>
-                <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}/>
-            </div>
-        )}
-        </>
-    );
+    return <SingleMovieComponent movie={movie} />;
 };
-
-
