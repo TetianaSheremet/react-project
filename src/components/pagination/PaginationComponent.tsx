@@ -16,7 +16,7 @@ export const PaginationComponent = () => {
     };
 
     return (
-        <div className="flex items-center justify-center gap-4 py-8">
+        <div className=" bg-gray-50 shadow-2xl flex items-center justify-center gap-4 py-8">
             <button
                 disabled={page === 1}
                 onClick={() => changePage(page - 1)}

@@ -5,6 +5,8 @@ import { useAppDispatch } from "../redux/hooks/useAppDispatch";
 import { useAppSelector } from "../redux/hooks/useAppSelector";
 import { movieSliceActions } from "../redux/slices/movieSlice/movieSlice";
 import {MoviesListCard} from "./MoviesListCard.tsx";
+import { Loader } from "./ui/Loader.tsx";
+
 
 
 export const MoviesList = () => {
@@ -34,7 +36,7 @@ export const MoviesList = () => {
     return (
 
         <div className="min-h-screen bg-[#e8e8e8] py-8">
-            {isLoading && <p className="text-center p-10">Loading...</p>}
+            {isLoading && <Loader/>}
 
             {!isLoading && (
 

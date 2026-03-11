@@ -1,10 +1,12 @@
+// src/components/GenreComponent.tsx
 import type { IGenre } from "../models/IGenre";
 
-interface Props {
+interface GenreProps {
     genres: IGenre[];
     isLoading: boolean;
     onGenreClick: (genreId: number) => void;
     onClear: () => void;
+    selectedGenre: string;
 }
 
 export const GenreComponent = ({
@@ -12,7 +14,8 @@ export const GenreComponent = ({
                                    isLoading,
                                    onGenreClick,
                                    onClear,
-                               }: Props) => {
+                                   selectedGenre,
+                               }: GenreProps) => {
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const value = e.target.value;
 
@@ -26,29 +29,31 @@ export const GenreComponent = ({
         }
     };
 
+    const isAllActive = !selectedGenre;
+
     return (
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 md:gap-4">
-            {/* Кнопка "All" окремо (як у тебе) */}
             <button
                 onClick={onClear}
-                className="px-5 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 whitespace-nowrap"
+                className={`px-5 py-2.5 font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 whitespace-nowrap ${
+                    isAllActive
+                        ? "bg-gray-700 text-white"
+                        : "bg-gray-200 hover:bg-gray-300 text-gray-800"
+                }`}
             >
                 All
             </button>
 
-            {/* Випадаючий список жанрів */}
             <div className="relative w-full sm:w-64">
                 {isLoading ? (
                     <div className="px-4 py-2.5 bg-gray-100 text-gray-500 rounded-lg border border-gray-300">
-                        Завантаження...
+                        Loading...
                     </div>
                 ) : (
                     <select
                         onChange={handleSelectChange}
-                        defaultValue="" // або "all", якщо хочеш щоб за замовчуванням було "All"
-                        className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg shadow-sm
-                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
-                       text-gray-900 cursor-pointer appearance-none"
+                        value={selectedGenre}
+                        className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 cursor-pointer appearance-none"
                         style={{
                             backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`,
                             backgroundPosition: "right 0.75rem center",

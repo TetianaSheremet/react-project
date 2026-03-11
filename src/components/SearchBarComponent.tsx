@@ -1,4 +1,4 @@
-// src/components/SearchBarComponent.tsx
+
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -16,7 +16,7 @@ export const SearchBar = () => {
 
     useEffect(() => {
         reset({ search: searchFromUrl });
-    }, [searchFromUrl]);
+    }, [searchFromUrl, reset]);
 
     const customHandler = (formDataProps: IFormProps) => {
         const value = formDataProps.search.trim();
@@ -49,7 +49,7 @@ export const SearchBar = () => {
                 type="submit"
                 className="px-5 py-2 bg-gray-600 text-white rounded-r-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 shadow-sm"
             >
-Search
+                Search
             </button>
         </form>
     );

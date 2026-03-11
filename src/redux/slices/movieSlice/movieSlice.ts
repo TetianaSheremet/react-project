@@ -1,12 +1,13 @@
 import type {IMovie} from "../../../models/IMovie.ts";
 import {createAsyncThunk, createSlice, isFulfilled, isPending, isRejected, type PayloadAction,} from "@reduxjs/toolkit";
 import {getAllMovies, getMovieById, getSearchedMovie} from "../../../services/api.service.ts";
+import type {ISingleMovie} from "../../../models/ISingleMovie.ts";
 
 
 
 type MovieSliceType ={
     movies: IMovie[],
-    movie:IMovie|null,
+    movie:ISingleMovie|null,
     searchResults: IMovie[],
     isLoading:boolean,
 }
@@ -84,7 +85,7 @@ export const movieSlice = createSlice({
 
             })
 
-            .addCase(loadMovie.fulfilled,(state,action:PayloadAction<IMovie>)=>{
+            .addCase(loadMovie.fulfilled,(state,action:PayloadAction<ISingleMovie>)=>{
                 state.movie = action.payload
             })
 

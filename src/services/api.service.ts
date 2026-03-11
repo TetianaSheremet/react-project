@@ -1,7 +1,7 @@
 import type {IMovieDiscoverResponse} from "../models/IMovieDiscoverResponse.ts";
-import type  {IMovie} from "../models/IMovie.ts";
 import type {IGenre} from "../models/IGenre.ts";
 import {BaseUrl, HEADERS} from "../constants/urls/urls.ts";
+import type {ISingleMovie} from "../models/ISingleMovie.ts";
 
 
 
@@ -32,13 +32,13 @@ export const getAllMovies = async (
 };
 
 
-export const getMovieById = async (id:string|undefined):Promise<IMovie>=>{
+export const getMovieById = async (id:string|undefined):Promise<ISingleMovie>=>{
     if (!id) {
         throw new Error("Movie id is required");
     }
         let url = `/movie/${id}`
 
-    return getFromTMDB <IMovie>(url)
+    return getFromTMDB <ISingleMovie>(url)
 
 
 

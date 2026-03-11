@@ -16,9 +16,9 @@ export const Header = () => {
     const userName = "Tetiana";
 
     return (
-        <header className="bg-white shadow-sm sticky top-0 z-50">
+        <header className="bg-gray-50 shadow-2xl sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
+                <div className="flex items-center justify-between h-20">
 
 
                     <div className="flex items-center gap-4">
@@ -61,7 +61,7 @@ export const Header = () => {
 
                     <div className="flex items-center gap-3">
                         <div className="flex items-center gap-2">
-                            <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white font-medium text-lg">
+                            <div className="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center text-white font-medium text-lg">
                                 {userName.charAt(0).toUpperCase()}
                             </div>
                             <span className="text-sm font-medium text-gray-700">
@@ -74,7 +74,7 @@ export const Header = () => {
 
 
             <div
-                className={`bg-white border-t transition-all duration-300 overflow-hidden ${
+                className={`bg-white  transition-all duration-300 overflow-hidden ${
                     isMenuOpen ? "max-h-[500px] py-4" : "max-h-0"
                 }`}
             >

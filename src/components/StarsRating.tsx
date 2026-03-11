@@ -8,7 +8,7 @@ export const StarsRating = ({ rating }: StarProps) => {
     const stars = rating / 2;
 
     return (
-        <div style={{ display: "flex", gap: "4px" }}>
+        <div className="flex gap-[5px] mt-[10px]">
             {[...Array(5)].map((_, index) => {
                 const fill = index + 1 <= stars;
 

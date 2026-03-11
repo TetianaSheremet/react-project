@@ -1,20 +1,32 @@
-import type { IMovie } from "../models/IMovie";
 
-interface Props {
-    movie: IMovie;
-}
 
-export const SingleMovieComponent = ({ movie }: Props) => {
-    return (
-        <div>
-            <h1>{movie.title}</h1>
-            <p>ID: {movie.id}</p>
-            {movie.poster_path && (
-                <img
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    alt={movie.title}
-                />
-            )}
-        </div>
-    );
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useAppDispatch } from "../redux/hooks/useAppDispatch";
+import { useAppSelector } from "../redux/hooks/useAppSelector";
+import { movieSliceActions } from "../redux/slices/movieSlice/movieSlice";
+import {SingleMovieView} from "./SingleMovieView.tsx";
+import {Loader} from "./ui/Loader.tsx";
+
+export const SingleMovieComponent = () => {
+
+
+    const { id } = useParams();
+    const dispatch = useAppDispatch();
+
+    const movie = useAppSelector(state => state.movieSlice.movie);
+    const isLoading = useAppSelector(state => state.movieSlice.isLoading);
+
+    useEffect(() => {
+        if (id) {
+            dispatch(movieSliceActions.loadMovie(id));
+        }
+    }, [id, dispatch]);
+
+    if (isLoading) return <Loader/>;
+
+    if (!movie) return null;
+
+    return <SingleMovieView movie={movie} />;
+
 };

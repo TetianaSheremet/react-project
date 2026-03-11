@@ -1,3 +1,4 @@
+// src/components/GenresComponent.tsx
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAppDispatch } from "../redux/hooks/useAppDispatch";
@@ -13,9 +14,11 @@ export const GenresComponent = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
 
+    const selectedGenre = searchParams.get("genre") || "";
+
     useEffect(() => {
         dispatch(genreSliceActions.loadGenres());
-    }, []);
+    }, [dispatch]);
 
     const onGenreClick = (genreId: number) => {
         const params = new URLSearchParams(searchParams);
@@ -49,6 +52,7 @@ export const GenresComponent = () => {
             isLoading={isLoading}
             onGenreClick={onGenreClick}
             onClear={clearGenre}
+            selectedGenre={selectedGenre}
         />
     );
 };
