@@ -46,7 +46,7 @@ export const SingleMovieView = ({ movie }: Props) => {
 
 
             {!backdropUrl && (
-                <div className="fixed inset-0 -z-10 bg-gray-950" />
+                <div className="fixed inset-0 -z-10 bg-gray-700 opacity-65" />
             )}
 
 
@@ -78,10 +78,10 @@ export const SingleMovieView = ({ movie }: Props) => {
 
                     <div className="flex items-center gap-3">
                         <StarsRating rating={movie.vote_average} />
-                        <span className="text-gray-300 text-sm">
+                        <span className="text-gray-100 text-sm">
                             {movie.vote_average.toFixed(1)} / 10
                         </span>
-                        <span className="text-gray-500 text-sm">
+                        <span className="text-gray-100 text-sm">
                             ({movie.vote_count.toLocaleString()} votes)
                         </span>
                     </div>
