@@ -5,13 +5,15 @@ import type {ISingleMovie} from "../../../models/ISingleMovie.ts";
 
 
 
+
 type MovieSliceType ={
     movies: IMovie[],
     movie:ISingleMovie|null,
     searchResults: IMovie[],
     isLoading:boolean,
+    totalPages: number
 }
-const initialState:MovieSliceType = {movies:[],movie:null,isLoading:false,searchResults:[]}
+const initialState:MovieSliceType = {movies:[],movie:null,isLoading:false,searchResults:[],totalPages:1}
 
  //////////// /////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -24,7 +26,7 @@ export const loadMovies = createAsyncThunk(
         try {
             const data = await getAllMovies(page, genreId);
 
-            return thunkAPI.fulfillWithValue(data.results)
+            return data
         } catch (e) {
             return thunkAPI.rejectWithValue('Failed to load movies');
         }
@@ -41,7 +43,7 @@ export const loadMovie = createAsyncThunk('movieSlice/loadMovie',
         try {
             const data = await getMovieById(id)
 
-            return thunkAPI.fulfillWithValue(data)
+            return data
         }
 
         catch (e){
@@ -56,7 +58,7 @@ export const searchMovies = createAsyncThunk('movieSlice/searchMovies',
 
     try{
         const data = await getSearchedMovie(query,page)
-        return thunkAPI.fulfillWithValue(data.results)
+        return data
     }
 
     catch (e) {
@@ -79,19 +81,20 @@ export const movieSlice = createSlice({
     },
     extraReducers: builder =>{
         builder
-            .addCase(loadMovies.fulfilled, (state, action:PayloadAction<IMovie[]>)=>{
-            state.movies = action.payload
-                state.searchResults = []
-
+            .addCase(loadMovies.fulfilled, (state, action) => {
+                state.movies = action.payload.results;
+                state.totalPages = action.payload.total_pages;
+                state.searchResults = [];
             })
 
             .addCase(loadMovie.fulfilled,(state,action:PayloadAction<ISingleMovie>)=>{
                 state.movie = action.payload
             })
 
-            .addCase(searchMovies.fulfilled,(state,action:PayloadAction<IMovie[]>)=>{
-                state.searchResults=action.payload
-                state.movies = []
+            .addCase(searchMovies.fulfilled, (state, action) => {
+                state.searchResults = action.payload.results;
+                state.totalPages = action.payload.total_pages;
+                state.movies = [];
             })
 
             .addMatcher(isFulfilled(loadMovie,loadMovies,searchMovies), (state)=>{
