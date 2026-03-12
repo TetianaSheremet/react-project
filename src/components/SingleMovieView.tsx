@@ -61,16 +61,16 @@ export const SingleMovieView = ({ movie }: Props) => {
                 <div className="flex flex-col gap-4">
 
                     <div>
-                        <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
+                        <h1 className="text-3xl mb-1.5 font-bold text-white">{movie.title}</h1>
 
                         {movie.original_title !== movie.title && (
-                            <p className="text-sm text-white-400 italic">
+                            <p className="text-sm  text-white italic">
                                 {movie.original_title}
                             </p>
                         )}
 
                         {movie.tagline && (
-                            <p className="text-sm text-gray-400">
+                            <p className="text-sm text-white">
                                 "{movie.tagline}"
                             </p>
                         )}
@@ -78,10 +78,10 @@ export const SingleMovieView = ({ movie }: Props) => {
 
                     <div className="flex items-center gap-3">
                         <StarsRating rating={movie.vote_average} />
-                        <span className="text-gray-100 text-sm">
+                        <span className="text-gray-100 mt-3 text-sm">
                             {movie.vote_average.toFixed(1)} / 10
                         </span>
-                        <span className="text-gray-100 text-sm">
+                        <span className="text-gray-100 mt-3  text-sm">
                             ({movie.vote_count.toLocaleString()} votes)
                         </span>
                     </div>

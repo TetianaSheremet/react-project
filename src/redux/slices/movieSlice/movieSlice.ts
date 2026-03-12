@@ -1,5 +1,5 @@
 import type {IMovie} from "../../../models/IMovie.ts";
-import {createAsyncThunk, createSlice, isFulfilled, isPending, isRejected, type PayloadAction,} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, isFulfilled, isPending, isRejected, } from "@reduxjs/toolkit";
 import {getAllMovies, getMovieById, getSearchedMovie} from "../../../services/api.service.ts";
 import type {ISingleMovie} from "../../../models/ISingleMovie.ts";
 
@@ -24,9 +24,9 @@ export const loadMovies = createAsyncThunk(
         thunkAPI
     ) => {
         try {
-            const data = await getAllMovies(page, genreId);
+            return await getAllMovies(page, genreId);
 
-            return data
+
         } catch (e) {
             return thunkAPI.rejectWithValue('Failed to load movies');
         }
@@ -41,9 +41,9 @@ export const loadMovie = createAsyncThunk('movieSlice/loadMovie',
 
 
         try {
-            const data = await getMovieById(id)
+            return  await getMovieById(id)
 
-            return data
+
         }
 
         catch (e){
@@ -57,8 +57,8 @@ export const searchMovies = createAsyncThunk('movieSlice/searchMovies',
     async ({query, page=1 } : {query:string, page?:number},thunkAPI ) =>{
 
     try{
-        const data = await getSearchedMovie(query,page)
-        return data
+       return await getSearchedMovie(query,page)
+
     }
 
     catch (e) {
@@ -87,7 +87,7 @@ export const movieSlice = createSlice({
                 state.searchResults = [];
             })
 
-            .addCase(loadMovie.fulfilled,(state,action:PayloadAction<ISingleMovie>)=>{
+            .addCase(loadMovie.fulfilled,(state,action)=>{
                 state.movie = action.payload
             })
 

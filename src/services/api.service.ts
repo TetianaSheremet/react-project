@@ -36,7 +36,7 @@ export const getMovieById = async (id:string|undefined):Promise<ISingleMovie>=>{
     if (!id) {
         throw new Error("Movie id is required");
     }
-        let url = `/movie/${id}`
+        const url = `/movie/${id}`
 
     return getFromTMDB <ISingleMovie>(url)
 
